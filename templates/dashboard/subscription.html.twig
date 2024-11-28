@@ -1,0 +1,26 @@
+{% extends 'dashboard.base.html.twig' %}
+
+{% block title %}Abonnement Premium{% endblock %}
+
+{% block body %}
+    <div class="flex items-center justify-center min-h-screen bg-gradient-to-br from-teal-500 via-blue-400 to-indigo-500 text-white">
+        <div class="bg-white/20 backdrop-blur-lg p-10 rounded-xl shadow-xl max-w-lg w-full text-center">
+            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-gradient-to-r from-teal-400 to-blue-500 rounded-full shadow-lg">
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M12 4v16M4 12h16" />
+                </svg>
+            </div>
+            <h1 class="text-3xl font-bold mb-4">Abonnez-vous à notre Service Premium</h1>
+            <p class="text-lg text-gray-200 mb-8">Profitez de ressources exclusives, d'options supplémentaires et bien plus ! Choisissez votre plan d'abonnement maintenant.</p>
+            <div class="flex flex-col items-center gap-6">
+                <a href="#" class="px-6 py-3 bg-teal-600 hover:bg-teal-700 text-white rounded-lg shadow-md transition transform hover:scale-105">
+                    Abonnement Mensuel
+                </a>
+                <a href="#" class="px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg shadow-md transition transform hover:scale-105">
+                    Abonnement Annuel
+                </a>
+                <p class="text-sm text-gray-300 mt-6">Essai gratuit de 7 jours disponible</p>
+            </div>
+        </div>
+    </div>
+{% endblock %}

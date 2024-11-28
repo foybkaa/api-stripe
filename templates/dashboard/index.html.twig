@@ -1,0 +1,50 @@
+{% extends 'dashboard.base.html.twig' %}
+
+{% block title %}Dashboard - Accès au contenu{% endblock %}
+
+{% block body %}
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <!-- Card 1: Accès au contenu payant -->
+        <div class="{% if app.user and app.user.hasAccessRessource %}bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white{% else %}bg-gray-800{% endif %} p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105">
+            <h3 class="text-2xl font-semibold mb-4">{% if app.user and app.user.hasAccessRessource %}Ressources disponibles{% else %}Accès au contenu payant{% endif %}</h3>
+            <p class="text-gray-300 mb-4">{% if app.user and app.user.hasAccessRessource %}Découvrez vos ressources exclusives disponibles dès maintenant.{% else %}Accédez à des articles exclusifs, vidéos, et bien plus encore.{% endif %}</p>
+            {% if app.user and app.user.hasAccessRessource %}
+                <a href="{{ path('app_ressources') }}" class="block text-center bg-white text-yellow-600 font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:bg-yellow-700 hover:text-white transition duration-300">
+                    Voir les ressources
+                </a>
+            {% else %}
+                <p class="text-2xl font-semibold text-white mb-4">19,00€</p>
+                <form action="{{ path('app_checkout') }}" method="post">
+                    <input type="hidden" name="amount" value="1900">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="mode" value="payment">
+                    <button type="submit" class="w-full bg-green-500 text-white px-6 py-3 rounded-lg text-lg hover:opacity-80">
+                        Payer
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+
+        <!-- Card 2: Accès au contenu abonnement -->
+        <div class="{% if app.user and app.user.subscriptionStatus == 'active' %}bg-gradient-to-r from-yellow-400 via-yellow-500 to-yellow-600 text-white{% else %}bg-gray-800{% endif %} p-6 rounded-xl shadow-lg hover:shadow-2xl transition duration-500 transform hover:scale-105">
+            <h3 class="text-2xl font-semibold mb-4">{% if app.user and app.user.subscriptionStatus == 'active' %}Abonnement actif{% else %}Accès au contenu abonnement{% endif %}</h3>
+            <p class="text-gray-300 mb-4">{% if app.user and app.user.subscriptionStatus == 'active' %}Gérez votre abonnement ou explorez les contenus réservés aux abonnés.{% else %}Accédez à des contenus réservés aux abonnés mensuels.{% endif %}</p>
+
+            {% if app.user and app.user.subscriptionStatus == 'active' %}
+                <a href="{{ path('app_subscription') }}" class="block text-center bg-white text-yellow-600 font-semibold px-6 py-3 rounded-lg shadow-md hover:shadow-lg hover:bg-yellow-700 hover:text-white transition duration-300">
+                    Voir les abonnements
+                </a>
+            {% else %}
+                <p class="text-2xl font-semibold text-white mb-4">24,00€ / mois</p>
+                <form action="{{ path('app_checkout') }}" method="post">
+                    <input type="hidden" name="amount" value="2400">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="mode" value="subscription">
+                    <button type="submit" class="w-full bg-green-500 text-white px-6 py-3 rounded-lg text-lg hover:opacity-80">
+                        S'abonner
+                    </button>
+                </form>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

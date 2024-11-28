@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+    {% block stylesheets %}
+        {{ encore_entry_link_tags('app') }}
+    {% endblock %}
+
+    {% block javascripts %}
+        {{ encore_entry_script_tags('app') }}
+    {% endblock %}
+</head>
+<body class="bg-gray-900 font-poppins text-white">
+<div class="flex min-h-screen bg-gray-900">
+    <!-- Sidebar -->
+    <div class="w-64 bg-gray-800 text-white p-6 flex flex-col justify-between">
+        <div>
+            <a href="{{ path('app_dashboard') }}" class="text-2xl font-semibold block mb-8">Dashboard</a>
+            <nav class="space-y-4">
+                <a href="{{ path('app_dashboard') }}"
+                   class="block py-2 px-4 text-lg bg-gray-700 hover:bg-blue-700 rounded-md focus:outline-none">Accueil</a>
+                <a href="{{ app.user.hasAccessRessource ? path('app_ressources') : '#' }}"
+                   class="block py-2 px-4 text-lg bg-gray-700 {{ app.user.hasAccessRessource ? 'hover:bg-blue-700' : 'text-gray-400 cursor-not-allowed' }} rounded-md focus:outline-none">
+                    Contenu Payant
+                </a>
+                <a href="{{ app.user.subscriptionStatus == 'active' ? path('app_subscription') : '#' }}"
+                   class="block py-2 px-4 text-lg bg-gray-700 {{ app.user.subscriptionStatus == 'active' ? 'hover:bg-blue-700' : 'text-gray-400 cursor-not-allowed' }} rounded-md focus:outline-none">
+                    Contenu Abonnés
+                </a>
+            </nav>
+        </div>
+        <div class="mt-8">
+            <a href="{{ path('app_logout') }}"
+               class="block py-2 px-4 text-lg bg-red-700 hover:bg-red-800 text-white rounded-md focus:outline-none">
+                Déconnexion
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="flex-1 p-8 bg-gray-900 text-white">
+        {% block body %}{% endblock %}
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: ~
+  workflow_dispatch: ~
+
+jobs:
+  tests:
+    name: Tests
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Build Docker images
+        uses: docker/bake-action@v4
+      -
+        name: Build Docker images
+        uses: docker/bake-action@v4
+        with:
+          pull: true
+          load: true
+          files: |
+            compose.yaml
+            compose.override.yaml
+      -
+        name: Start services
+        run: docker compose up --wait --no-build
+      -
+        name: Vendor install
+        run: make vendor-dev
+      -
+        name: Check HTTP reachable
+        run: curl -v --fail-with-body http://localhost:8080
+      -
+        name: Run PHPUnit
+        run: docker compose exec -T php bin/phpunit
+  lint:
+    name: Docker Lint
+    runs-on: ubuntu-latest
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v4
+      -
+        name: Lint Dockerfile
+        uses: hadolint/hadolint-action@v3.1.0

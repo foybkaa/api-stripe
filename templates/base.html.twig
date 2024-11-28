@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
+        {% block stylesheets %}
+            {{ encore_entry_link_tags('app') }}
+        {% endblock %}
+
+        {% block javascripts %}
+            {{ encore_entry_script_tags('app') }}
+        {% endblock %}
+    </head>
+    <body class="bg-gray-900 font-poppins text-white">
+
+    <!-- Navbar -->
+    <nav class="bg-transparent fixed top-0 left-0 right-0 z-10 p-4">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="{{ path('app_home' )}}" class="text-xl font-semibold tracking-wider text-white">Stripe Test</a>
+            {% if app.request.attributes.get('_route') == 'app_home' %}
+                <div>
+                    {% if not app.user %}
+                        <a href="{{ path('app_login') }}" class="mr-2 bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white px-4 py-2 rounded-lg transition duration-200" id="loginBtn">
+                            Se connecter
+                        </a>
+                        <a href="{{ path('app_register') }}" class="bg-white border-2 border-white hover:bg-transparent hover:text-white text-gray-900 px-4 py-2 rounded-lg transition duration-200" id="registerBtn">
+                            Inscription
+                        </a>
+                    {% else %}
+                        <a href="{{ path('app_dashboard') }}" class="bg-transparent border-2 border-white hover:bg-white hover:text-gray-900 text-white px-4 py-2 rounded-lg transition duration-200" id="dashboardBtn">
+                            Dashboard
+                        </a>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+
+    {% block body %}{% endblock %}
+
+    <!-- Footer -->
+    <footer class="bg-transparent py-6 mt-20 text-center text-sm text-white">
+        <p>&copy; 2024 Stripe Test | Tous droits réservés</p>
+    </footer>
+
+    </body>
+</html>

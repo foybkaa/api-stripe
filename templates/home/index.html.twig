@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Page d'Accueil{% endblock %}
+
+{% block body %}
+    <!-- Hero Section -->
+    <section class="hero min-h-[80vh] flex items-center justify-center text-center px-6 py-16">
+        <div class="max-w-3xl mx-auto space-y-8">
+            <h2 class="text-5xl font-semibold text-white leading-tight tracking-wider">
+                Testez l'API de Stripe
+            </h2>
+            <p class="text-xl text-gray-300">
+                Une plateforme simple et moderne pour les étudiants qui souhaitent tester des paiements simples et récurrents via Stripe.
+            </p>
+        </div>
+    </section>
+
+    <!-- Features Section (optional, if you want to add descriptions later) -->
+    <section class="features py-16 hidden">
+        <div class="container mx-auto px-6">
+            <h2 class="text-center text-3xl font-semibold mb-12">Fonctionnalités</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="feature-card bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-2xl font-semibold mb-4">Paiement Simple</h3>
+                    <p>Testez le paiement unique avec une carte de crédit via l'API Stripe.</p>
+                </div>
+                <div class="feature-card bg-white shadow-lg rounded-lg p-6">
+                    <h3 class="text-2xl font-semibold mb-4">Abonnement Récurrent</h3>
+                    <p>Testez les paiements récurrents pour les abonnements mensuels via Stripe.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+{% block javascripts %}
+{% endblock %}
