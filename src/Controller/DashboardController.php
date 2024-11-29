@@ -14,11 +14,13 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class DashboardController extends AbstractController
 {
-    private $gateway;
+    private StripeClient $gateway;
+    private EntityManagerInterface $manager;
 
-    public function __construct(EntityManagerInterface $manager, TokenStorageInterface $tokenStorage)
+    public function __construct(EntityManagerInterface $manager)
     {
-        $this->gateway= new StripeClient($_ENV['STRIPE_SECRET_KEY']);
+        $this->gateway = new StripeClient($_ENV['STRIPE_SECRET_KEY']);
+        $this->manager = $manager;
     }
 
     #[Route('/dashboard', name: 'app_dashboard')]
